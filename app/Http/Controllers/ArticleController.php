@@ -35,7 +35,7 @@ class ArticleController extends Controller
             Article::create($articleData);
             session()->forget('article_data');
             return view('articles.complete', ['message'=>'投稿']);
-        }catch(\Exception){
+        }catch(\Exception $e){
             return view('error.error_message', ['message'=>'投稿に失敗しました'.$e->getmessage()]);
         }
     }
@@ -72,7 +72,7 @@ class ArticleController extends Controller
             Article::destroy($id);
             return view('articles.complete', ['message'=>'消去']);
         }
-        catch(\Exception){
+        catch(\Exception $e){
             return view('error.error_message', ['message'=>'消去に失敗しました'.$e->getmessage()]);
         }
     }
