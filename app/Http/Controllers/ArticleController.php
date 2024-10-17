@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-
+use App\Http\Requests\ArticleRequest;
 
 class ArticleController extends Controller
 {
@@ -16,19 +16,14 @@ class ArticleController extends Controller
         return view('articles.index',compact('articles'));
     }
 
-    public function confirm_store(Request $request)
+    public function confirm_store(ArticleRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'content' => 'required|string',
-        ]);
-    
         session(['article_data' => $request->only(['name', 'content'])]);
         $articleData = session('article_data');
         return view('articles.post_confirm', compact('articleData'));
     }
 
-    public function store(Request $request)
+    public function store()
     {
         try{
             $articleData = session('article_data');
@@ -40,20 +35,14 @@ class ArticleController extends Controller
         }
     }
 
-    public function edit($id)
+    public function edit(Article $article)
     {
-        $article = Article::find($id);
         return view('articles.edit_confirm',compact('article'));
     }
 
-    public function update(Request $request,$id)
+    public function update(ArticleRequest $request,Article $article)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'content' => 'required|string',
-        ]);
         try{
-            $article = Article::find($id);
             $article->update($request->only(['name','content']));
             return view('articles.complete', ['message'=>'編集']);
         }catch(\Exception $e){
@@ -61,15 +50,14 @@ class ArticleController extends Controller
         }
     }
 
-    public function confirm_destroy($id){
-        $article = Article::find($id);
+    public function confirm_destroy(Article $article){
         return view('articles.delete_confirm',compact('article'));
     }
 
-    public function destroy($id)
+    public function destroy(Article $article)
     {
         try{
-            Article::destroy($id);
+            $article->delete();
             return view('articles.complete', ['message'=>'消去']);
         }
         catch(\Exception $e){
