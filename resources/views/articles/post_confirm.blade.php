@@ -22,7 +22,6 @@
         </table>
         <form action="{{ route('articles.store') }}" method="post">
             @csrf
-            <input type="hidden" name="token">
             <button type="submit">投稿</button>
         </form>
     </main>

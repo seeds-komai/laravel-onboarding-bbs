@@ -19,7 +19,7 @@
             <tr><th>投稿内容</th><td>{{$article->content}}</td></tr>
             </tbody>
         </table>
-        <form action="{{route('articles.destroy',['id'=>$article->id])}}" method="post">
+        <form action="{{route('articles.destroy',$article)}}" method="post">
             @csrf
             <button type="submit">削除</button>
         </form>

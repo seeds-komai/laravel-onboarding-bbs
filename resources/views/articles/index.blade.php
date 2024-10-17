@@ -30,13 +30,13 @@
                     </div>
                     <div>{{$article['content']}}</div>
                     <div style="display: inline-flex;">
-                        <form action="{{route('articles.edit',['id'=>$article->id])}}" method="post">
+                        <form action="{{route('articles.edit',$article)}}" method="post">
                             @csrf
                             <input type="hidden" name="id" value="{{$article['id']}} ">
                             <button type="submit">編集</button>
                         </form>
                         &nbsp;
-                        <form action="{{ route('articles.confirm_destroy',['id'=>$article->id])}}" method="post">
+                        <form action="{{ route('articles.confirm_destroy',$article)}}" method="post">
                             @csrf
                             <input type="hidden" name="id" value="{{$article['id']}}">
                             <button type="submit">削除</button>

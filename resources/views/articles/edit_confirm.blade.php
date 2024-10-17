@@ -23,7 +23,7 @@
         <h1>投稿編集</h1>
     </header>
     <main>
-        <form action="{{route('articles.update',['id'=>$article->id])}}" method="post">
+        <form action="{{route('articles.update',$article)}}" method="post">
             @csrf
             <table>
                 <tbody>
