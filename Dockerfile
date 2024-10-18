@@ -7,11 +7,12 @@ RUN docker-php-ext-install pdo pdo_mysql
 # Composerをインストール
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# tzdataパッケージをインストール
-RUN apt-get update && apt-get install -y tzdata
-
-# 必要な環境変数を設定（タイムゾーンを指定）
-ENV MYSQL_TIME_ZONE="Asia/Tokyo"
+RUN apt-get update && apt-get install -y \
+    unzip \
+    git \
+    libzip-dev \
+    zip \
+    && docker-php-ext-install zip
 
 # PATHを設定
 ENV PATH="/root/.composer/vendor/bin:${PATH}"
