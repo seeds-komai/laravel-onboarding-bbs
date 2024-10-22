@@ -1,4 +1,4 @@
-version: '3.9'
+# version: '3.9'
 
 services:
   web:
@@ -9,10 +9,6 @@ services:
       - ./:/var/www/html
     ports:
       - "80:80"
-    command: /bin/bash -c  "composer install && apachectl -D FOREGROUND"
-    
-    networks:
-      - laravel
 
   db:
     image: mysql:8.0.31
@@ -25,11 +21,7 @@ services:
       MYSQL_RANDOM_ROOT_PASSWORD: 1
     ports:
       - "3306:3306"
-    networks:
-      - laravel
-
 volumes:
   db_data:
 
-networks:
-  laravel:
+
